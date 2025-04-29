@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
@@ -11,12 +13,14 @@ from rest_framework import status
 from .serializers import UserSerializer
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def list_users(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def retrieve_user(request, user_id):
     try:
         user = User.objects.get(id=user_id)
@@ -38,6 +42,7 @@ def create_user(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete_user(request, user_id):
     try:
         user = User.objects.get(id=user_id)
@@ -47,6 +52,7 @@ def delete_user(request, user_id):
         return Response({'error': 'Utilisateur non trouvé'}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['PUT', 'PATCH'])
+@permission_classes([IsAuthenticated])
 def update_user(request, user_id):
     try:
         user = User.objects.get(id=user_id)
