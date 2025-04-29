@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'sales_data',
     'recommendation',
     'back_ddd',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -65,9 +66,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'back_ddd.urls'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
     {
