@@ -22,6 +22,9 @@ def country_code_to_name(code):
 class InsightByCountryView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, country):
+        if request.user.role not in ['admin', 'analyst', 'marketing']:
+            return Response({"detail": "Accès restreint à votre rôle."}, status=403)
+
         country = country.upper()
         country_code = country
 

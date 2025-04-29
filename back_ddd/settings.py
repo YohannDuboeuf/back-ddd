@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'sales_data',
     'recommendation',
     'back_ddd',
+    'users',
     'corsheaders',
 ]
 
@@ -120,6 +121,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Custom role
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Internationalization
