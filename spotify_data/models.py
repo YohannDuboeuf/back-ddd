@@ -6,10 +6,10 @@ class Track(models.Model):
     popularity = models.FloatField()
     danceability = models.FloatField()
     energy = models.FloatField()
-    valence = models.FloatField()
-    tempo = models.FloatField()
+    valence = models.FloatField(default=0.0)
+    tempo = models.FloatField(default=120.0)
+    country = models.CharField(max_length=100, default="Unknown")
+    date = models.CharField(default="-")
 
-class CountryTrackTrend(models.Model):
-    country = models.CharField(max_length=100)
-    track = models.ForeignKey(Track, on_delete=models.CASCADE)
-    date = models.DateField()
+    def __str__(self):
+        return f"{self.name} - {self.artist} ({self.country})"
