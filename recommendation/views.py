@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from spotify_data.models import Track
 from sales_data.models import Sale
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
 
 import pandas as pd
 import pycountry
@@ -20,8 +19,8 @@ def country_code_to_name(code):
     except:
         return None
 
-@permission_classes([IsAuthenticated])
 class InsightByCountryView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, country):
         country = country.upper()
         country_code = country

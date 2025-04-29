@@ -1,13 +1,14 @@
 from django.urls import path
 from .views import (
-    login_api, logout_api, register_api,
-    list_users, retrieve_user, create_user, delete_user, update_user
+    register_api, list_users, retrieve_user, create_user,
+    delete_user, update_user, CustomLoginView
 )
+from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
-    path('login/', login_api, name='login_api'), # POST
-    path('logout/', logout_api, name='logout_api'), # DELETE
-    path('register/', register_api, name='register_api'), # POST
+    path('login/', CustomLoginView.as_view(), name='login'),               # POST username/password → token
+    path('register/', register_api, name='register'),                      # POST new user
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # POST refresh token
 
     path('all/', list_users, name='list_users'),  # GET
     path('<int:user_id>/', retrieve_user, name='retrieve_user'),  # GET
